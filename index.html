@@ -168,6 +168,6 @@ c.querySelector('#data').textContent=JSON.stringify(D).replace(/</g,'\\u003c');c
 try{await a.publish('<!DOCTYPE html>\n'+c.outerHTML)}catch(err){m.textContent='Publish failed: '+(err.code||err.message)}}
 async function route(){const a=$('#admin');a.className='';a.innerHTML='';if(!isAdm())return;if(authed)return admin();
 a.className='on';a.innerHTML=`<div class="aw" style="max-width:340px;margin-top:20vh"><h3>Admin login</h3><input id="apw" type="text" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" placeholder="Password"><button class="btn p" id="lg">Login</button> <span id="le" style="color:#d33"></span></div>`;
-const go=async()=>{let ok=false;try{ok=(await sha($('#apw').value.trim()))===HASH}catch(_){$('#le').textContent='Browser blocked hashing';return}if(ok){authed=true;admin()}else $('#le').textContent='Wrong password'};$('#lg').onclick=go;$('#apw').onkeydown=e=>e.key==='Enter'&&go()}
+const go=async()=>{let ok=false;try{ok=(await sha($('#apw').value.trim()))===HASH}catch(_){$('#le').textContent='Browser blocked hashing';return}if(ok){authed=true;admin()}else $('#le').textContent='Wrong password'};$('#lg').onclick=go;$('#apw').addEventListener('keydown',e=>{if(e.key==='Enter')go()})}
 INTRO=!!D.p.photo&&!isAdm()&&!matchMedia('(prefers-reduced-motion: reduce)').matches;site();route();addEventListener('hashchange',route);if(INTRO)intro();
 </script></body></html>
